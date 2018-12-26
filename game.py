@@ -60,7 +60,7 @@ class Game:
         self.currentEnemy.draw(view)
 
     def getCurrentEnemy(self):
-        randomIndex = random.randint(1, len(self.enemies)-1)
+        randomIndex = random.randint(0, len(self.enemies)-1)
 
         enemy = self.enemies[randomIndex]
         enemy.upgradeStatsAcordingLevel(self.roundNumber)
