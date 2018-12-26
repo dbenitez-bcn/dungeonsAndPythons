@@ -1,6 +1,7 @@
 from classes.entity import *
 from classes.level import *
 import random
+
 class Player(Entity):
     def __init__(self, health, name, attackPoints, x, y, sprite):
         super().__init__(health, name, attackPoints, x, y, sprite)

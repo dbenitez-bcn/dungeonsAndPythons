@@ -1,5 +1,5 @@
 import pygame
-import os
+from drawable import draw
 
 class Game:
     def __init__(self):
@@ -19,21 +19,17 @@ class Game:
                     self.gameOver = True
 
             self.screen.fill((0, 0, 0))
-            self.buildUI()
+            self.buildUI(self.screen)
             pygame.display.flip()
             self.clock.tick(60)
 
         pygame.quit()
 
-    def get_image(self, path):
-        self._image_library
-        image = self._image_library.get(path)
-        if image == None:
-            canonicalized_path = path.replace('/', os.sep).replace('\\', os.sep)
-            image = pygame.image.load(canonicalized_path)
-            self._image_library[path] = image
-        return image
 
-    def buildUI(self):
-        self.screen.blit(self.get_image('assets/recources/bg.png'), (0, 0))
-        self.screen.blit(self.get_image('assets/recources/panel.png'), (0, 476))
+
+    def buildUI(self, view):
+        #background
+        draw(view, 'assets/recources/bg.png', 0, 0)
+        #bottom panel
+        draw(view, 'assets/recources/panel.png', 0, 476)
+

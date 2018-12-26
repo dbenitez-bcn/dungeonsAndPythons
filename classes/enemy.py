@@ -1,4 +1,5 @@
 from classes.entity import Entity
+
 class Enemy(Entity):
     def __init__(self, health, name, attackPoints, x, y, sprite, moneyWhenDying, experienceWhenDying):
         super().__init__(health, name, attackPoints, x, y, sprite)

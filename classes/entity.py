@@ -1,3 +1,5 @@
+from drawable import draw
+
 class Entity:
     def __init__(self, health, name, attackPoints, x, y, sprite):
         self.health = health
@@ -17,5 +19,5 @@ class Entity:
         else:
             return False
 
-    def draw(self):
-        print("TODO implement how to dra    w")
+    def draw(self, view):
+        draw(view, self.sprite, self.x, self.y)
