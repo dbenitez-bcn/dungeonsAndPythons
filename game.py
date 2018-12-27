@@ -11,7 +11,7 @@ class Game:
         self.screen = pygame.display.set_mode((900, 750))
         self.gameOver = False
         self.clock = pygame.time.Clock()
-        self.roundNumber = 1
+        self.roundNumber = 0
         self.player = Player(100, "Hero", 25, 50, 125, "assets/player/player.png")
         self.boss = Enemy(100, "The BOSS: Dragon", 20, 550, 100, "assets/monsters/boss.png", 300, 200)
         self.enemies = [Enemy(50, "Cloud ashes", 10, 550, 100, "assets/monsters/ashesSnake.png", 50, 10),
@@ -26,7 +26,7 @@ class Game:
                         Enemy(45, "Hydra", 14, 550, 100, "assets/monsters/triHead.png", 45, 14),
                         Enemy(25, "The python brothers", 5, 550, 100, "assets/monsters/triSnakes.png", 25, 10),
                         Enemy(40, "Amega", 7, 550, 100, "assets/monsters/waterFairy.png", 40, 7)]
-        self.currentEnemy = self.getCurrentEnemy()
+        self.currentEnemy = self.getRandomRegularEnemy()
 
     def run(self):
         pygame.init()
@@ -59,11 +59,26 @@ class Game:
         #enemy
         self.currentEnemy.draw(view)
 
-    def getCurrentEnemy(self):
-        randomIndex = random.randint(0, len(self.enemies)-1)
+    def nextRound(self):
+        self.roundNumber += 1
+        self.setCurrentEnemy()
 
+    def setCurrentEnemy(self):
+        if self.roundNumber % 10:
+            self.currentEnemy = self.getBossEnemy()
+        else:
+            self.currentEnemy = self.getRandomRegularEnemy()
+
+        self.currentEnemy.upgradeStatsAcordingLevel(self.roundNumber)
+
+    def getRandomRegularEnemy(self):
+        randomIndex = random.randint(0, len(self.enemies)-1)
         enemy = self.enemies[randomIndex]
-        enemy.upgradeStatsAcordingLevel(self.roundNumber)
 
         return enemy
 
+
+    def getBossEnemy(self):
+        enemy = self.boss
+
+        return enemy
