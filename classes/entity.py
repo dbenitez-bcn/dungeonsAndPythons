@@ -1,4 +1,4 @@
-from drawable import draw
+from utilities.drawable import displayImage
 
 class Entity:
     def __init__(self, health, name, attackPoints, x, y, sprite):
@@ -20,4 +20,4 @@ class Entity:
             return False
 
     def draw(self, view):
-        draw(view, self.sprite, self.x, self.y)
+        displayImage(view, self.sprite, self.x, self.y)

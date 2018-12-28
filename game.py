@@ -1,5 +1,6 @@
 import pygame
-from drawable import draw
+from utilities.drawable import displayImage
+from utilities.drawable import displayText
 from classes.player import Player
 from classes.enemy import Enemy
 import random
@@ -28,6 +29,7 @@ class Game:
                         Enemy(40, "Amega", 7, 550, 100, "assets/monsters/waterFairy.png", 40, 7)]
         self.currentEnemy = self.getRandomRegularEnemy()
 
+
     def run(self):
         pygame.init()
         pygame.display.set_caption(self.gameName)
@@ -45,13 +47,12 @@ class Game:
         pygame.quit()
 
 
-
     def buildUI(self, view):
         #background
-        draw(view, 'assets/recources/bg.png', 0, 0)
+        displayImage(view, 'assets/recources/bg.png', 0, 0)
 
         #bottom panel
-        draw(view, 'assets/recources/panel.png', 0, 476)
+        displayImage(view, 'assets/recources/panel.png', 0, 475)
 
         #palyer
         self.player.draw(view)
@@ -59,9 +60,45 @@ class Game:
         #enemy
         self.currentEnemy.draw(view)
 
+        #buttons
+        self.drawButtons(view)
+
+        #Player information
+        self.drawPlayerInfo(view)
+
+
+    def drawButtons(self, view):
+        #attack button
+        displayImage(view, 'assets/ui/button.png', 165, 533)
+        displayText(view, 'ATTACK', 220, 553)
+
+        #heal button
+        displayImage(view, 'assets/ui/button.png', 450, 533)
+        displayText(view, 'HEAL', 540, 553)
+
+        #armor button
+        displayImage(view, 'assets/ui/button.png', 165, 618)
+        displayText(view, 'ARMOR', 220, 638)
+
+        #exit button
+        displayImage(view, 'assets/ui/button.png', 450, 618)
+        displayText(view, 'EXIT', 540, 638)
+
+
+    def drawPlayerInfo(self, view):
+        #heal points
+        displayImage(view, 'assets/ui/hp_bar.png', 30, 405)
+        #todo draw red rrect for the life level
+
+        #experience
+        displayImage(view, 'assets/ui/experience.png', 10, 10)
+        # todo draw red rect for the exp level
+
+
     def nextRound(self):
         self.roundNumber += 1
         self.setCurrentEnemy()
+
 
     def setCurrentEnemy(self):
         if self.roundNumber % 10:
@@ -70,6 +107,7 @@ class Game:
             self.currentEnemy = self.getRandomRegularEnemy()
 
         self.currentEnemy.upgradeStatsAcordingLevel(self.roundNumber)
+
 
     def getRandomRegularEnemy(self):
         randomIndex = random.randint(0, len(self.enemies)-1)
