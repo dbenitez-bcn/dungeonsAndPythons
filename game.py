@@ -40,14 +40,14 @@ class Game:
                     self.gameOver = True
 
             self.screen.fill((0, 0, 0))
-            self.buildUI(self.screen)
+            self.buildGUI(self.screen)
             pygame.display.flip()
             self.clock.tick(60)
 
         pygame.quit()
 
 
-    def buildUI(self, view):
+    def buildGUI(self, view):
         #background
         displayImage(view, 'assets/recources/bg.png', 0, 0)
 
@@ -88,13 +88,26 @@ class Game:
 
     def drawPlayerInfo(self, view):
         #heal points
+        lifePercent = self.getPercentPoints(self.player.health, self.player.healthMax, 460)
+        pygame.draw.rect(view, (255,0,0), (50, 405, lifePercent, 49))
+
+        #heal GUI
         displayImage(view, 'assets/ui/hp_bar.png', 30, 405)
-        #todo draw red rrect for the life level
 
-        #experience
+        #experience points
+        expPercent = self.getPercentPoints(self.player.level.experience, self.player.level.experienceNextLevel, 335)
+        pygame.draw.rect(view, (255,192,0), (66, 30, expPercent, 10))
+
+        #experience GUI
         displayImage(view, 'assets/ui/experience.png', 10, 10)
-        # todo draw red rect for the exp level
 
+
+    def getPercentPoints(self, points, maxPoints, maxPercent):
+        if points <= 0:
+            return 0
+        else:
+            points = (points*maxPercent)/maxPoints
+            return int(points)
 
     def nextRound(self):
         self.roundNumber += 1
