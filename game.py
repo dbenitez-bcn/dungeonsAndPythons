@@ -4,6 +4,7 @@ from utilities.drawable import displayText
 from utilities.drawable import displayTextButton
 from classes.player import Player
 from classes.enemy import Enemy
+from classes.position import Position
 import random
 
 class Game:
@@ -30,6 +31,7 @@ class Game:
                         Enemy(40, "Amega", 7, 550, 100, "assets/monsters/waterFairy.png", 40, 7)]
         self.currentEnemy = self.getRandomRegularEnemy()
         self.actionSelected = False
+        self.arrowMenuPosition = Position.TOPLEFT
 
 
     def run(self):
@@ -40,6 +42,7 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.gameOver = True
+                self.keyEvents(event)
 
             self.screen.fill((0, 0, 0))
             self.buildGUI(self.screen)
@@ -48,6 +51,35 @@ class Game:
 
         pygame.quit()
 
+    def keyEvents(self, event):
+        if event.type == 3:
+            #key down
+            if event.key == 274:
+                if self.arrowMenuPosition == Position.TOPLEFT:
+                    self.arrowMenuPosition = Position.BOTTOMLEFT
+                elif self.arrowMenuPosition == Position.TOPRIGHT:
+                    self.arrowMenuPosition = Position.BOTTOMRIGHT
+            #key up
+            elif event.key == 273:
+                if self.arrowMenuPosition == Position.BOTTOMLEFT:
+                    self.arrowMenuPosition = Position.TOPLEFT
+                elif self.arrowMenuPosition == Position.BOTTOMRIGHT:
+                    self.arrowMenuPosition = Position.TOPRIGHT
+            #key left
+            elif event.key == 276:
+                if self.arrowMenuPosition == Position.TOPRIGHT:
+                    self.arrowMenuPosition = Position.TOPLEFT
+                elif self.arrowMenuPosition == Position.BOTTOMRIGHT:
+                    self.arrowMenuPosition = Position.BOTTOMLEFT
+            #key right
+            elif event.key == 275:
+                if self.arrowMenuPosition == Position.TOPLEFT:
+                    self.arrowMenuPosition = Position.TOPRIGHT
+                elif self.arrowMenuPosition == Position.BOTTOMLEFT:
+                    self.arrowMenuPosition = Position.BOTTOMRIGHT
+            #key enter
+            elif event.key == 13:
+                self.playAction()
 
     def buildGUI(self, view):
         #background
@@ -68,6 +100,18 @@ class Game:
         #Player information
         self.drawPlayerInfo(view)
 
+        #Menu arrow
+        self.drawArrowMenu(view)
+
+    def playAction(self):
+        if self.arrowMenuPosition == Position.TOPLEFT:
+            print("Attack")
+        elif self.arrowMenuPosition == Position.TOPRIGHT:
+            print("heal")
+        elif self.arrowMenuPosition == Position.BOTTOMLEFT:
+            print("armor")
+        elif self.arrowMenuPosition == Position.BOTTOMRIGHT:
+            print("Exit")
 
     def drawButtons(self, view):
         #attack button
@@ -113,6 +157,16 @@ class Game:
 
         #experience GUI
         displayImage(view, 'assets/ui/experience.png', 10, 10)
+
+    def drawArrowMenu(self, view):
+        if self.arrowMenuPosition == Position.TOPLEFT:
+            displayImage(view, 'assets/ui/menu_arrow.png', 42, 540)
+        elif self.arrowMenuPosition == Position.TOPRIGHT:
+            displayImage(view, 'assets/ui/menu_arrow.png', 430, 540)
+        elif self.arrowMenuPosition == Position.BOTTOMLEFT:
+            displayImage(view, 'assets/ui/menu_arrow.png', 42, 628)
+        elif self.arrowMenuPosition == Position.BOTTOMRIGHT:
+            displayImage(view, 'assets/ui/menu_arrow.png', 430, 628)
 
 
     def getPercentPoints(self, points, maxPoints, maxPercent):
