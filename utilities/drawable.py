@@ -27,3 +27,10 @@ def displayImage(viewToDraw, spritePath, xPosition, yPosition):
 
 def displayText(viewToDraw, text, xPosition, yPosition, color = (255, 255, 255)):
     viewToDraw.blit(get_text(text, color), (xPosition, yPosition))
+
+def displayTextButton(viewToDraw, text, xPosition, yPosition, color):
+    text = get_text(text, color)
+    textPosition = text.get_rect()
+    textPosition.center = ((xPosition+(375/2)), (yPosition+(75/2)+2))
+
+    viewToDraw.blit(text, textPosition)

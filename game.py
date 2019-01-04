@@ -1,6 +1,7 @@
 import pygame
 from utilities.drawable import displayImage
 from utilities.drawable import displayText
+from utilities.drawable import displayTextButton
 from classes.player import Player
 from classes.enemy import Enemy
 import random
@@ -28,6 +29,7 @@ class Game:
                         Enemy(25, "The python brothers", 5, 550, 100, "assets/monsters/triSnakes.png", 25, 10),
                         Enemy(40, "Amega", 7, 550, 100, "assets/monsters/waterFairy.png", 40, 7)]
         self.currentEnemy = self.getRandomRegularEnemy()
+        self.actionSelected = False
 
 
     def run(self):
@@ -68,24 +70,27 @@ class Game:
 
 
     def drawButtons(self, view):
-        self.drawAttackButton(view)
+        #attack button
+        self.drawButton(view,'ATTACK', 65, 533, 'assets/ui/button.png')
 
+        #heal button
         self.drawHealButton(view)
 
+        #armor button
         self.drawArmorButton(view)
 
-        self.drawExitButton(view)
+        #exit button
+        self.drawButton(view,'EXIT', 450, 618, 'assets/ui/button.png')
 
-    def drawAttackButton(self, view):
-        displayImage(view, 'assets/ui/button.png', 65, 533)
-        displayText(view, 'ATTACK', 180, 553)
+    def drawButton(self, view, text, x, y, buttonSprite, textColor = (255, 255, 255)):
+        displayImage(view, buttonSprite, x, y)
+        displayTextButton(view, text, x, y, textColor)
 
     def drawHealButton(self, view):
         textColor = (255, 255, 255) if self.player.canHeal() else (149, 129, 115)
         buttonSprite = 'assets/ui/button.png' if self.player.canHeal() else 'assets/ui/button_disable.png'
 
-        displayImage(view, buttonSprite, 450, 533)
-        displayText(view, 'HEAL(50C)', 540, 553, textColor)
+        self.drawButton(view, 'HEAL(50C)', 450, 533, buttonSprite, textColor)
 
     def drawArmorButton(self, view):
         textColor = (255, 255, 255) if self.player.canAddArmor() else (149, 129, 115)
@@ -93,12 +98,7 @@ class Game:
         armorCost = self.player.getArmorCost()
         buttonText = 'ARMOR('+str(armorCost)+'C)' if self.player.armor < self.player.MAX_ARMOR else 'MAX ARMOR'
 
-        displayImage(view, buttonSprite, 65, 618)
-        displayText(view, buttonText, 120, 638, textColor)
-
-    def drawExitButton(self, view):
-        displayImage(view, 'assets/ui/button.png', 450, 618)
-        displayText(view, 'EXIT', 600, 638)
+        self.drawButton(view, buttonText, 65, 618, buttonSprite, textColor)
 
     def drawPlayerInfo(self, view):
         lifePercent = self.getPercentPoints(self.player.health, self.player.healthMax, 460)

@@ -7,7 +7,7 @@ class Player(Entity):
         super().__init__(health, name, attackPoints, x, y, sprite)
         self.armor = 0
         self.MAX_ARMOR = 5
-        self.money = 200
+        self.money = 0
         self.level = Level()
 
     def canHeal(self):
