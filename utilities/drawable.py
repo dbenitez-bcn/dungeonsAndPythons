@@ -12,12 +12,11 @@ def get_image(path):
         _image_library[path] = image
     return image
 
-def get_text(text, color):
+def get_text(text, color, fontSize):
     font_type = 'assets/fonts/phosphate.ttf'
-    size = 45
 
     text = str(text)
-    font = pygame.font.Font(font_type, size)
+    font = pygame.font.Font(font_type, fontSize)
     text = font.render(text, True, color)
 
     return text
@@ -25,12 +24,12 @@ def get_text(text, color):
 def displayImage(viewToDraw, spritePath, xPosition, yPosition):
     viewToDraw.blit(get_image(spritePath), (xPosition, yPosition))
 
-def displayText(viewToDraw, text, xPosition, yPosition, color = (255, 255, 255)):
-    viewToDraw.blit(get_text(text, color), (xPosition, yPosition))
+def displayText(viewToDraw, text, xPosition, yPosition, color = (255, 255, 255), fontSize = 45):
+    viewToDraw.blit(get_text(text, color, fontSize), (xPosition, yPosition))
 
-def displayTextButton(viewToDraw, text, xPosition, yPosition, color):
-    text = get_text(text, color)
+def displayTextButton(viewToDraw, text, xPosition, yPosition, color = (255, 255, 255), width = 375, height = 75, fontSize = 45):
+    text = get_text(text, color, fontSize)
     textPosition = text.get_rect()
-    textPosition.center = ((xPosition+(375/2)), (yPosition+(75/2)+2))
+    textPosition.center = ((xPosition+(width/2)), (yPosition+(height/2)+2))
 
     viewToDraw.blit(text, textPosition)

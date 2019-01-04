@@ -1,5 +1,6 @@
 import pygame
 from utilities.drawable import displayImage
+from utilities.drawable import get_text
 from utilities.drawable import displayText
 from utilities.drawable import displayTextButton
 from classes.player import Player
@@ -145,6 +146,7 @@ class Game:
         self.drawButton(view, buttonText, 65, 618, buttonSprite, textColor)
 
     def drawPlayerInfo(self, view):
+        #heal Poins
         lifePercent = self.getPercentPoints(self.player.health, self.player.healthMax, 460)
         pygame.draw.rect(view, (255,0,0), (50, 405, lifePercent, 49))
 
@@ -152,11 +154,24 @@ class Game:
         displayImage(view, 'assets/ui/hp_bar.png', 30, 405)
 
         #experience points
-        expPercent = self.getPercentPoints(self.player.level.experience, self.player.level.experienceNextLevel, 335)
-        pygame.draw.rect(view, (255,192,0), (66, 30, expPercent, 10))
+        expPercent = self.getPercentPoints(self.player.level.experience, self.player.level.experienceNextLevel, 336)
+        pygame.draw.rect(view, (255,192,0), (65, 30, expPercent, 10))
 
         #experience GUI
         displayImage(view, 'assets/ui/experience.png', 10, 10)
+
+        #level
+        displayTextButton(view, str(self.player.level.level), 22, 22, width=25, height=25, fontSize=30)
+
+        #money
+        moneyStrSizes = get_text(str(self.player.money), (255, 255, 255), 45).get_rect()
+        displayText(view, str(self.player.money), (900-moneyStrSizes.width-20), 20)
+        displayImage(view, 'assets/ui/coin.png', (900 - moneyStrSizes.width - 78), 15)
+
+        #round
+        roundStrSizes = get_text(str(self.roundNumber), (255, 255, 255), 45).get_rect()
+        displayText(view, str(self.roundNumber), (900-roundStrSizes.width-20), 80)
+        displayImage(view, 'assets/ui/kills.png', (900 - roundStrSizes.width - 78), 75)
 
     def drawArrowMenu(self, view):
         if self.arrowMenuPosition == Position.TOPLEFT:
