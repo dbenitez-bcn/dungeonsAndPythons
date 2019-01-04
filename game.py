@@ -69,20 +69,21 @@ class Game:
 
     def drawButtons(self, view):
         #attack button
-        displayImage(view, 'assets/ui/button.png', 165, 533)
-        displayText(view, 'ATTACK', 220, 553)
+        displayImage(view, 'assets/ui/button.png', 65, 533)
+        displayText(view, 'ATTACK', 180, 553)
 
         #heal button
         displayImage(view, 'assets/ui/button.png', 450, 533)
-        displayText(view, 'HEAL', 540, 553)
+        displayText(view, 'HEAL(50C)', 540, 553)
 
         #armor button
-        displayImage(view, 'assets/ui/button.png', 165, 618)
-        displayText(view, 'ARMOR', 220, 638)
+        armorCost = 150+(50*self.player.armor)
+        displayImage(view, 'assets/ui/button.png', 65, 618)
+        displayText(view, 'ARMOR('+str(armorCost)+'C)', 120, 638)
 
         #exit button
         displayImage(view, 'assets/ui/button.png', 450, 618)
-        displayText(view, 'EXIT', 540, 638)
+        displayText(view, 'EXIT', 600, 638)
 
 
     def drawPlayerInfo(self, view):

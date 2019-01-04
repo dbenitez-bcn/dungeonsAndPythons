@@ -14,7 +14,7 @@ def get_image(path):
 
 def get_text(text):
     font_type = 'assets/fonts/phosphate.ttf'
-    size = 50
+    size = 45
     color = (255, 255, 255)
 
     text = str(text)
