@@ -7,11 +7,11 @@ class Player(Entity):
         super().__init__(health, name, attackPoints, x, y, sprite)
         self.armor = 0
         self.MAX_ARMOR = 5
-        self.money = 0
+        self.money = 200
         self.level = Level()
 
     def canHeal(self):
-        if (self.money > 20) & (self.health < self.healthMax):
+        if (self.money >= 20) & (self.health < self.healthMax):
             return True
         else:
             return False
@@ -20,12 +20,17 @@ class Player(Entity):
         if self.canHeal():
             self.money -= 20
             self.health += 50
+            if self.health > self.healthMax:
+                self.health = self.healthMax
 
     def canAddArmor(self):
-        if self.armor < self.MAX_ARMOR:
+        if (self.armor < 5) & (self.money >= self.getArmorCost()):
             return True
         else:
             return False
+
+    def getArmorCost(self):
+        return 150 + (50 * self.armor)
 
     def addArmor(self):
         if self.canAddArmor():

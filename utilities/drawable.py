@@ -12,10 +12,9 @@ def get_image(path):
         _image_library[path] = image
     return image
 
-def get_text(text):
+def get_text(text, color):
     font_type = 'assets/fonts/phosphate.ttf'
     size = 45
-    color = (255, 255, 255)
 
     text = str(text)
     font = pygame.font.Font(font_type, size)
@@ -26,5 +25,5 @@ def get_text(text):
 def displayImage(viewToDraw, spritePath, xPosition, yPosition):
     viewToDraw.blit(get_image(spritePath), (xPosition, yPosition))
 
-def displayText(viewToDraw, text, xPosition, yPosition):
-    viewToDraw.blit(get_text(text), (xPosition, yPosition))
+def displayText(viewToDraw, text, xPosition, yPosition, color = (255, 255, 255)):
+    viewToDraw.blit(get_text(text, color), (xPosition, yPosition))

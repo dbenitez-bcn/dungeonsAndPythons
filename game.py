@@ -68,26 +68,39 @@ class Game:
 
 
     def drawButtons(self, view):
-        #attack button
+        self.drawAttackButton(view)
+
+        self.drawHealButton(view)
+
+        self.drawArmorButton(view)
+
+        self.drawExitButton(view)
+
+    def drawAttackButton(self, view):
         displayImage(view, 'assets/ui/button.png', 65, 533)
         displayText(view, 'ATTACK', 180, 553)
 
-        #heal button
-        displayImage(view, 'assets/ui/button.png', 450, 533)
-        displayText(view, 'HEAL(50C)', 540, 553)
+    def drawHealButton(self, view):
+        textColor = (255, 255, 255) if self.player.canHeal() else (149, 129, 115)
+        buttonSprite = 'assets/ui/button.png' if self.player.canHeal() else 'assets/ui/button_disable.png'
 
-        #armor button
-        armorCost = 150+(50*self.player.armor)
-        displayImage(view, 'assets/ui/button.png', 65, 618)
-        displayText(view, 'ARMOR('+str(armorCost)+'C)', 120, 638)
+        displayImage(view, buttonSprite, 450, 533)
+        displayText(view, 'HEAL(50C)', 540, 553, textColor)
 
-        #exit button
+    def drawArmorButton(self, view):
+        textColor = (255, 255, 255) if self.player.canAddArmor() else (149, 129, 115)
+        buttonSprite = 'assets/ui/button.png' if self.player.canAddArmor() else 'assets/ui/button_disable.png'
+        armorCost = self.player.getArmorCost()
+        buttonText = 'ARMOR('+str(armorCost)+'C)' if self.player.armor < self.player.MAX_ARMOR else 'MAX ARMOR'
+
+        displayImage(view, buttonSprite, 65, 618)
+        displayText(view, buttonText, 120, 638, textColor)
+
+    def drawExitButton(self, view):
         displayImage(view, 'assets/ui/button.png', 450, 618)
         displayText(view, 'EXIT', 600, 638)
 
-
     def drawPlayerInfo(self, view):
-        #heal points
         lifePercent = self.getPercentPoints(self.player.health, self.player.healthMax, 460)
         pygame.draw.rect(view, (255,0,0), (50, 405, lifePercent, 49))
 
