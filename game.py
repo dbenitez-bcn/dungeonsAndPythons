@@ -112,8 +112,10 @@ class Game:
         elif self.arrowMenuPosition == Position.BOTTOMLEFT:
             print("armor")
         elif self.arrowMenuPosition == Position.BOTTOMRIGHT:
-            print("Exit")
+            self.exitGame()
 
+    def exitGame(self):
+        self.gameOver = True
     def drawButtons(self, view):
         #attack button
         self.drawButton(view,'ATTACK', 65, 533, 'assets/ui/button.png')
