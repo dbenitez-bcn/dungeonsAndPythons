@@ -6,10 +6,18 @@ class Level:
 
     def addExperience(self, expPoints):
         self.experience += expPoints
-        if self.experience > self.experienceNextLevel:
+        if self.canLevelUp():
             self.levelUp()
 
     def levelUp(self):
         self.level += 1
         self.experience -= self.experienceNextLevel
-        self.experienceNextLevel *= 1.2
+        self.experienceNextLevel *= 1.4
+        if self.canLevelUp():
+            self.levelUp()
+
+    def canLevelUp(self):
+        if self.experience > self.experienceNextLevel:
+            return True
+        else:
+            return False

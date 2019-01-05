@@ -7,7 +7,7 @@ class Enemy(Entity):
         self.experienceWhenDying = experienceWhenDying
 
     def upgradeStatsAcordingLevel(self, level):
-        upgradePoints = (level/100)+1.0
+        upgradePoints = (level/100)+1.5
 
         self.health *= upgradePoints
         self.health = int(self.health)

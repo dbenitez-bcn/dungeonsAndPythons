@@ -130,6 +130,9 @@ class Game:
     def healAction(self):
         self.player.heal()
 
+    def armorAction(self):
+        self.player.addArmor()
+
     def drawButtons(self, view):
         #attack button
         self.drawButton(view,'ATTACK', 65, 533, 'assets/ui/button.png')
@@ -181,12 +184,12 @@ class Game:
 
         #money
         moneyStrSizes = get_text(str(self.player.money), (255, 255, 255), 45).get_rect()
-        displayText(view, str(self.player.money), (900-moneyStrSizes.width-20), 20)
+        displayText(view, str(self.player.money), (900 - moneyStrSizes.width - 20), 20)
         displayImage(view, 'assets/ui/coin.png', (900 - moneyStrSizes.width - 78), 15)
 
         #round
         roundStrSizes = get_text(str(self.roundNumber), (255, 255, 255), 45).get_rect()
-        displayText(view, str(self.roundNumber), (900-roundStrSizes.width-20), 80)
+        displayText(view, str(self.roundNumber), (900 - roundStrSizes.width - 20), 80)
         displayImage(view, 'assets/ui/kills.png', (900 - roundStrSizes.width - 78), 75)
 
     def drawArrowMenu(self, view):
