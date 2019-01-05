@@ -109,7 +109,7 @@ class Game:
         if self.arrowMenuPosition == Position.TOPLEFT:
             self.attackAction()
         elif self.arrowMenuPosition == Position.TOPRIGHT:
-            print("heal")
+            self.healAction()
         elif self.arrowMenuPosition == Position.BOTTOMLEFT:
             print("armor")
         elif self.arrowMenuPosition == Position.BOTTOMRIGHT:
@@ -126,6 +126,9 @@ class Game:
             self.currentEnemy.attack(self.player)
             if self.player.isDead():
                 self.exitGame()
+
+    def healAction(self):
+        self.player.heal()
 
     def drawButtons(self, view):
         #attack button
