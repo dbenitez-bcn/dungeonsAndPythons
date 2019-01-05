@@ -105,8 +105,11 @@ class Game:
         #menu arrow
         self.drawArrowMenu(view)
 
-        #Armor
+        #armor
         self.drawArmor(view)
+
+        #enemy info
+        self.drawEnemyLife(view)
 
     def playAction(self):
         if self.arrowMenuPosition == Position.TOPLEFT:
@@ -194,6 +197,12 @@ class Game:
         roundStrSizes = get_text(str(self.roundNumber), (255, 255, 255), 45).get_rect()
         displayText(view, str(self.roundNumber), (900 - roundStrSizes.width - 20), 80)
         displayImage(view, 'assets/ui/kills.png', (900 - roundStrSizes.width - 78), 75)
+
+    def drawEnemyLife(self, view):
+        lifePercent = self.getPercentPoints(self.currentEnemy.health, self.currentEnemy.healthMax, 138)
+        pygame.draw.rect(view, (255,0,0), (603, 400, lifePercent, 15))
+        displayImage(view, 'assets/ui/enemy_hp_bar.png', 600, 400)
+
 
     def drawArrowMenu(self, view):
         if self.arrowMenuPosition == Position.TOPLEFT:
