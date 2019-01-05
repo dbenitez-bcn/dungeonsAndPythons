@@ -99,11 +99,14 @@ class Game:
         #buttons
         self.drawButtons(view)
 
-        #Player information
+        #player information
         self.drawPlayerInfo(view)
 
-        #Menu arrow
+        #menu arrow
         self.drawArrowMenu(view)
+
+        #Armor
+        self.drawArmor(view)
 
     def playAction(self):
         if self.arrowMenuPosition == Position.TOPLEFT:
@@ -111,7 +114,7 @@ class Game:
         elif self.arrowMenuPosition == Position.TOPRIGHT:
             self.healAction()
         elif self.arrowMenuPosition == Position.BOTTOMLEFT:
-            print("armor")
+            self.armorAction()
         elif self.arrowMenuPosition == Position.BOTTOMRIGHT:
             self.exitGame()
 
@@ -202,6 +205,17 @@ class Game:
         elif self.arrowMenuPosition == Position.BOTTOMRIGHT:
             displayImage(view, 'assets/ui/menu_arrow.png', 430, 628)
 
+    def drawArmor(self, view):
+        if self.player.armor > 0:
+            displayImage(view, 'assets/ui/armor.png', 480, 350)
+        if self.player.armor > 1:
+            displayImage(view, 'assets/ui/armor.png', 428, 350)
+        if self.player.armor > 2:
+            displayImage(view, 'assets/ui/armor.png', 376, 350)
+        if self.player.armor > 3:
+            displayImage(view, 'assets/ui/armor.png', 324, 350)
+        if self.player.armor > 4:
+            displayImage(view, 'assets/ui/armor.png', 272, 350)
 
     def getPercentPoints(self, points, maxPoints, maxPercent):
         if points <= 0:

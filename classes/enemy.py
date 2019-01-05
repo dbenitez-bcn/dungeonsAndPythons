@@ -23,3 +23,8 @@ class Enemy(Entity):
 
         self.experienceWhenDying *= upgradePoints
         self.experienceWhenDying = int(self.experienceWhenDying)
+
+    def attack(self, enemigo):
+        damageMitigation = 0.08 * enemigo.armor
+        finalAttackPoints = self.attackPoints*(1.0 - damageMitigation)
+        enemigo.health -= int(finalAttackPoints)

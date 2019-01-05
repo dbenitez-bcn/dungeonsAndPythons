@@ -49,3 +49,6 @@ class Player(Entity):
 
     def getUpgradePoints(self, min, max):
         return random.randint(min,max)
+
+    def attack(self, enemigo):
+        enemigo.health -= self.attackPoints

@@ -11,7 +11,14 @@ class Entity:
         self.sprite = sprite
 
     def attack(self, enemigo):
-        enemigo.health -= self.attackPoints
+        if enemigo is Enemy:
+            enemigo.health -= self.attackPoints
+        else:
+            damageMitigation = 0.08 * enemigo.armor
+            finalAttackPoints = self.attackPoints*damageMitigation
+            print("Damage mitigation->"+str(damageMitigation)+"// Final points->"+str(finalAttackPoints))
+            enemigo.health -= finalAttackPoints
+
 
     def isDead(self):
         if self.health < 0:
