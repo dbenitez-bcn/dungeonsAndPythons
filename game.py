@@ -2,10 +2,11 @@ import pygame
 from utilities.drawable import displayImage
 from utilities.drawable import get_text
 from utilities.drawable import displayText
-from utilities.drawable import displayTextButton
+from utilities.drawable import displayTextCentered
 from classes.player import Player
 from classes.enemy import Enemy
 from classes.position import Position
+import time
 import random
 
 class Game:
@@ -106,7 +107,7 @@ class Game:
 
     def playAction(self):
         if self.arrowMenuPosition == Position.TOPLEFT:
-            print("Attack")
+            self.attackAction()
         elif self.arrowMenuPosition == Position.TOPRIGHT:
             print("heal")
         elif self.arrowMenuPosition == Position.BOTTOMLEFT:
@@ -116,6 +117,16 @@ class Game:
 
     def exitGame(self):
         self.gameOver = True
+
+    def attackAction(self):
+        self.player.attack(self.currentEnemy)
+        if self.currentEnemy.isDead():
+            self.nextRound()
+        else:
+            self.currentEnemy.attack(self.player)
+            if self.player.isDead():
+                self.exitGame()
+
     def drawButtons(self, view):
         #attack button
         self.drawButton(view,'ATTACK', 65, 533, 'assets/ui/button.png')
@@ -131,13 +142,13 @@ class Game:
 
     def drawButton(self, view, text, x, y, buttonSprite, textColor = (255, 255, 255)):
         displayImage(view, buttonSprite, x, y)
-        displayTextButton(view, text, x, y, textColor)
+        displayTextCentered(view, text, x, y, textColor)
 
     def drawHealButton(self, view):
         textColor = (255, 255, 255) if self.player.canHeal() else (149, 129, 115)
         buttonSprite = 'assets/ui/button.png' if self.player.canHeal() else 'assets/ui/button_disable.png'
 
-        self.drawButton(view, 'HEAL(50C)', 450, 533, buttonSprite, textColor)
+        self.drawButton(view, 'HEAL(20C)', 450, 533, buttonSprite, textColor)
 
     def drawArmorButton(self, view):
         textColor = (255, 255, 255) if self.player.canAddArmor() else (149, 129, 115)
@@ -163,7 +174,7 @@ class Game:
         displayImage(view, 'assets/ui/experience.png', 10, 10)
 
         #level
-        displayTextButton(view, str(self.player.level.level), 22, 22, width=25, height=25, fontSize=30)
+        displayTextCentered(view, str(self.player.level.level), 22, 22, width=25, height=25, fontSize=30)
 
         #money
         moneyStrSizes = get_text(str(self.player.money), (255, 255, 255), 45).get_rect()
@@ -195,11 +206,13 @@ class Game:
 
     def nextRound(self):
         self.roundNumber += 1
+        self.player.money += self.currentEnemy.moneyWhenDying
+        self.player.level.addExperience(self.currentEnemy.experienceWhenDying)
         self.setCurrentEnemy()
 
 
     def setCurrentEnemy(self):
-        if self.roundNumber % 10:
+        if self.roundNumber % 10 == 0:
             self.currentEnemy = self.getBossEnemy()
         else:
             self.currentEnemy = self.getRandomRegularEnemy()

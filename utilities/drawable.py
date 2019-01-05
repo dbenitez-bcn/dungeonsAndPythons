@@ -27,7 +27,7 @@ def displayImage(viewToDraw, spritePath, xPosition, yPosition):
 def displayText(viewToDraw, text, xPosition, yPosition, color = (255, 255, 255), fontSize = 45):
     viewToDraw.blit(get_text(text, color, fontSize), (xPosition, yPosition))
 
-def displayTextButton(viewToDraw, text, xPosition, yPosition, color = (255, 255, 255), width = 375, height = 75, fontSize = 45):
+def displayTextCentered(viewToDraw, text, xPosition, yPosition, color = (255, 255, 255), width = 375, height = 75, fontSize = 45):
     text = get_text(text, color, fontSize)
     textPosition = text.get_rect()
     textPosition.center = ((xPosition+(width/2)), (yPosition+(height/2)+2))
