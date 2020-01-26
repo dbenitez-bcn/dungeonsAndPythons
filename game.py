@@ -1,4 +1,7 @@
 import pygame
+import time
+import random
+
 from utilities.drawable import displayImage
 from utilities.drawable import get_text
 from utilities.drawable import displayText
@@ -7,8 +10,6 @@ from classes.player import Player
 from classes.enemy import Enemy
 from classes.position import Position
 from classes.keyboard import Keyboard
-import time
-import random
 
 class Game:
     def __init__(self):
@@ -56,32 +57,32 @@ class Game:
 
     def keyEvents(self, event):
         if event.type == 3:
-            #key down
+            
             if event.key == Keyboard.DOWN:
                 if self.arrowMenuPosition == Position.TOPLEFT:
                     self.arrowMenuPosition = Position.BOTTOMLEFT
                 elif self.arrowMenuPosition == Position.TOPRIGHT:
                     self.arrowMenuPosition = Position.BOTTOMRIGHT
-            #key up
+                    
             elif event.key == Keyboard.UP:
                 if self.arrowMenuPosition == Position.BOTTOMLEFT:
                     self.arrowMenuPosition = Position.TOPLEFT
                 elif self.arrowMenuPosition == Position.BOTTOMRIGHT:
                     self.arrowMenuPosition = Position.TOPRIGHT
-            #key left
+                    
             elif event.key == Keyboard.LEFT:
                 if self.arrowMenuPosition == Position.TOPRIGHT:
                     self.arrowMenuPosition = Position.TOPLEFT
                 elif self.arrowMenuPosition == Position.BOTTOMRIGHT:
                     self.arrowMenuPosition = Position.BOTTOMLEFT
-            #key right
+                    
             elif event.key == Keyboard.RIGHT:
                 if self.arrowMenuPosition == Position.TOPLEFT:
                     self.arrowMenuPosition = Position.TOPRIGHT
                 elif self.arrowMenuPosition == Position.BOTTOMLEFT:
                     self.arrowMenuPosition = Position.BOTTOMRIGHT
-            #key enter
-            elif event.key == 13:
+                    
+            elif event.key == Keyboard.ENTER:
                 self.playAction()
 
     def buildGUI(self, view):
