@@ -6,6 +6,7 @@ from utilities.drawable import displayTextCentered
 from classes.player import Player
 from classes.enemy import Enemy
 from classes.position import Position
+from classes.keyboard import Keyboard
 import time
 import random
 
@@ -56,25 +57,25 @@ class Game:
     def keyEvents(self, event):
         if event.type == 3:
             #key down
-            if event.key == 274:
+            if event.key == Keyboard.DOWN:
                 if self.arrowMenuPosition == Position.TOPLEFT:
                     self.arrowMenuPosition = Position.BOTTOMLEFT
                 elif self.arrowMenuPosition == Position.TOPRIGHT:
                     self.arrowMenuPosition = Position.BOTTOMRIGHT
             #key up
-            elif event.key == 273:
+            elif event.key == Keyboard.UP:
                 if self.arrowMenuPosition == Position.BOTTOMLEFT:
                     self.arrowMenuPosition = Position.TOPLEFT
                 elif self.arrowMenuPosition == Position.BOTTOMRIGHT:
                     self.arrowMenuPosition = Position.TOPRIGHT
             #key left
-            elif event.key == 276:
+            elif event.key == Keyboard.LEFT:
                 if self.arrowMenuPosition == Position.TOPRIGHT:
                     self.arrowMenuPosition = Position.TOPLEFT
                 elif self.arrowMenuPosition == Position.BOTTOMRIGHT:
                     self.arrowMenuPosition = Position.BOTTOMLEFT
             #key right
-            elif event.key == 275:
+            elif event.key == Keyboard.RIGHT:
                 if self.arrowMenuPosition == Position.TOPLEFT:
                     self.arrowMenuPosition = Position.TOPRIGHT
                 elif self.arrowMenuPosition == Position.BOTTOMLEFT:
