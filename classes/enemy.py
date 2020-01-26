@@ -7,13 +7,9 @@ class Enemy(Entity):
         self.experienceWhenDying = experienceWhenDying
 
     def upgradeStatsAcordingLevel(self, level):
-        upgradePoints = (level/100)+1.5
+        upgradePoints = self.getUpgradePoints(level)
 
-        self.health *= upgradePoints
-        self.health = int(self.health)
-
-        self.healthMax *= upgradePoints
-        self.healthMax = int(self.healthMax)
+        self.health.upgradeEnemyStats(upgradePoints)
 
         self.attackPoints *= upgradePoints
         self.attackPoints = int(self.attackPoints)
@@ -24,7 +20,10 @@ class Enemy(Entity):
         self.experienceWhenDying *= upgradePoints
         self.experienceWhenDying = int(self.experienceWhenDying)
 
+    def getUpgradePoints(self, level):
+        return (level/100)+1.5
+
     def attack(self, enemigo):
         damageMitigation = 0.08 * enemigo.armor
         finalAttackPoints = self.attackPoints*(1.0 - damageMitigation)
-        enemigo.health -= int(finalAttackPoints)
+        enemigo.receiveDamage(int(finalAttackPoints))

@@ -172,7 +172,7 @@ class Game:
 
     def drawPlayerInfo(self, view):
         #heal Poins
-        lifePercent = self.getPercentPoints(self.player.health, self.player.healthMax, 460)
+        lifePercent = self.getPercentPoints(self.player.getHealth(), self.player.getHealthMax(), 460)
         pygame.draw.rect(view, (255,0,0), (50, 405, lifePercent, 49))
 
         #heal GUI
@@ -199,7 +199,7 @@ class Game:
         displayImage(view, 'assets/ui/kills.png', (900 - roundStrSizes.width - 78), 75)
 
     def drawEnemyLife(self, view):
-        lifePercent = self.getPercentPoints(self.currentEnemy.health, self.currentEnemy.healthMax, 138)
+        lifePercent = self.getPercentPoints(self.currentEnemy.getHealth(), self.currentEnemy.getHealthMax(), 138)
         pygame.draw.rect(view, (255,0,0), (603, 400, lifePercent, 15))
         displayImage(view, 'assets/ui/enemy_hp_bar.png', 600, 400)
 

@@ -11,7 +11,7 @@ class Player(Entity):
         self.level = Level()
 
     def canHeal(self):
-        if (self.money >= 20) & (self.health < self.healthMax):
+        if (self.money >= 20) & (self.health.canHeal()):
             return True
         else:
             return False
@@ -19,9 +19,7 @@ class Player(Entity):
     def heal(self):
         if self.canHeal():
             self.money -= 20
-            self.health += 50
-            if self.health > self.healthMax:
-                self.health = self.healthMax
+            self.health.heal()
 
     def canAddArmor(self):
         if (self.armor < 5) & (self.money >= self.getArmorCost()):
@@ -41,9 +39,8 @@ class Player(Entity):
         self.upgradeStats()
 
     def upgradeStats(self):
-        healPoints = self.getUpgradePoints(10, 15)
-        self.healthMax += healPoints
-        self.health += healPoints
+        healUpgradePoints = self.getUpgradePoints(10, 15)
+        self.health.upgradeStats(healUpgradePoints)
 
         self.attackPoints += self.getUpgradePoints(1, 3)
 
@@ -51,4 +48,4 @@ class Player(Entity):
         return random.randint(min,max)
 
     def attack(self, enemigo):
-        enemigo.health -= self.attackPoints
+        enemigo.receiveDamage(self.attackPoints)
