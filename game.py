@@ -168,7 +168,7 @@ class Game:
         textColor = (255, 255, 255) if self.player.canAddArmor() else (149, 129, 115)
         buttonSprite = 'assets/ui/button.png' if self.player.canAddArmor() else 'assets/ui/button_disable.png'
         armorCost = self.player.getArmorCost()
-        buttonText = 'ARMOR('+str(armorCost)+'C)' if self.player.armor < self.player.MAX_ARMOR else 'MAX ARMOR'
+        buttonText = 'MAX ARMOR' if self.player.haveMaxArmor() else 'ARMOR('+str(armorCost)+'C)'
 
         self.drawButton(view, buttonText, 65, 618, buttonSprite, textColor)
 
@@ -217,16 +217,7 @@ class Game:
             displayImage(view, 'assets/ui/menu_arrow.png', 430, 628)
 
     def drawArmor(self, view):
-        if self.player.armor > 0:
-            displayImage(view, 'assets/ui/armor.png', 480, 350)
-        if self.player.armor > 1:
-            displayImage(view, 'assets/ui/armor.png', 428, 350)
-        if self.player.armor > 2:
-            displayImage(view, 'assets/ui/armor.png', 376, 350)
-        if self.player.armor > 3:
-            displayImage(view, 'assets/ui/armor.png', 324, 350)
-        if self.player.armor > 4:
-            displayImage(view, 'assets/ui/armor.png', 272, 350)
+        self.player.drawArmor(view)
 
     def getPercentPoints(self, points, maxPoints, maxPercent):
         if points <= 0:

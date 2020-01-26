@@ -1,12 +1,12 @@
+import random
 from classes.entity import *
 from classes.level import *
-import random
+from classes.armor import Armor
 
 class Player(Entity):
     def __init__(self, health, name, attackPoints, x, y, sprite):
         super().__init__(health, name, attackPoints, x, y, sprite)
-        self.armor = 0
-        self.MAX_ARMOR = 5
+        self.armor = Armor()
         self.money = 0
         self.level = Level()
 
@@ -22,17 +22,23 @@ class Player(Entity):
             self.health.heal()
 
     def canAddArmor(self):
-        if (self.armor < 5) & (self.money >= self.getArmorCost()):
+        if (self.armor.canAddArmor()) & (self.money >= self.armor.getArmorCost()):
             return True
         else:
             return False
 
+    def haveMaxArmor(self):
+        return self.armor.haveMaxArmor()
+
     def getArmorCost(self):
-        return 150 + (50 * self.armor)
+        return self.armor.getArmorCost()
 
     def addArmor(self):
         if self.canAddArmor():
-            self.armor += 1
+            self.armor.addArmor()
+
+    def damageMitigation(self):
+        return 0.08 * self.armor.getArmor()
 
     def levelUp(self):
         self.level.levelUp()
@@ -49,3 +55,6 @@ class Player(Entity):
 
     def attack(self, enemigo):
         enemigo.receiveDamage(self.attackPoints)
+    
+    def drawArmor(self, view):
+        self.armor.drawArmor(view)

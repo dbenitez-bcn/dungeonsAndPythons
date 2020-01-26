@@ -24,6 +24,5 @@ class Enemy(Entity):
         return (level/100)+1.5
 
     def attack(self, enemigo):
-        damageMitigation = 0.08 * enemigo.armor
-        finalAttackPoints = self.attackPoints*(1.0 - damageMitigation)
+        finalAttackPoints = self.attackPoints*(1.0 - enemigo.damageMitigation())
         enemigo.receiveDamage(int(finalAttackPoints))
