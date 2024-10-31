@@ -4,4 +4,4 @@
 > python -u ./main.py
 
 ## Screenshots
-![Screenshot1](https://media.githubusercontent.com/media/dbenitez-bcn/dungeonsAndPythons/master/screenshot1.png)
+![Screenshot1](https://raw.githubusercontent.com/dbenitez-bcn/dungeonsAndPythons/master/screenshot1.png)
